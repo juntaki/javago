@@ -15,8 +15,6 @@ func runJavap(classpath, importpath string) Clazz {
 		//return nil, err
 	}
 
-	// className := ""
-
 	re := regexp.MustCompile(`\s(\S*?)(|\(.*?\))\s*(|throws.*?);`)
 
 	// // []["symbol", "signature"]
@@ -50,9 +48,6 @@ scan:
 		array := strings.Split(text, " ")
 
 		if array[0] != "" {
-			// // Use importpath
-			// className = array[len(array)-2]
-			// fmt.Println(className)
 			continue scan
 		}
 
