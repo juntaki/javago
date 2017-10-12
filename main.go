@@ -31,9 +31,22 @@ func main() {
 
 	app.Action = func(c *cli.Context) error {
 		clazz := runJavap(classpath, classfile)
+		tmpl := template.Must(template.ParseFiles("class.tmpl"))
 
-		tmpl := template.Must(template.ParseFiles("template/class.tmpl"))
-		err := tmpl.Execute(os.Stdout, clazz)
+		path := "java"
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			err := os.Mkdir(path, 0777)
+			if err != nil {
+				panic(err)
+			}
+		}
+		file, err := os.Create("java/" + classfile + ".go")
+		if err != nil {
+			panic(err)
+		}
+		defer file.Close()
+
+		err = tmpl.Execute(file, clazz)
 		if err != nil {
 			panic(err)
 		}
