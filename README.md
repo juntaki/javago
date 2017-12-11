@@ -48,7 +48,21 @@ java.lang.Math.go
 
 Don't forget to add libjvm.so's directory to LD_LIBRARY_PATH.
 
+### for debian/ubuntu
+
 ~~~
 export LD_LIBRARY_PATH=/usr/lib/jvm/default-java/jre/lib/amd64/server
-go run yourapp.go
+export CLASSPATH="." # add your classpath
+go build
+./yourapp
+~~~
+
+### for mac
+
+~~~
+export JAVA_HOME=`/usr/libexec/java_home` 
+export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib/server/
+export CLASSPATH="."
+go build
+./yourapp
 ~~~
